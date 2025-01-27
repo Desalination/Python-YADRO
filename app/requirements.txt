@@ -1,7 +1,0 @@
-fastapi
-uvicorn
-rdkit
-psycopg2
-pydantic
-pydantic-settings
-sqlalchemy
