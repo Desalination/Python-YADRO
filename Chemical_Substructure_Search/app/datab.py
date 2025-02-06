@@ -3,15 +3,19 @@ from db_config import settings
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session, sessionmaker
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 DATABASE_URL = "postgresql://{username}:{password}@{host}:{port}/{db}".format(
-    username=settings.DB_USERNAME,
-    password=settings.DB_PASSWORD,
-    host=settings.DB_HOST,
-    port=settings.DB_PORT,
-    db=settings.DB_NAME,
+    username=os.getenv('POSTGRES_USER', 'postgres'),
+    password=os.getenv('POSTGRES_PASSWORD', 'postgres'),
+    host=os.getenv('DB_HOST'),
+    port=os.getenv("DB_PORT", 5432),
+    db=os.getenv("DB_NAME", "postgres")
 )
+
 
 
 engine = create_engine(DATABASE_URL)
