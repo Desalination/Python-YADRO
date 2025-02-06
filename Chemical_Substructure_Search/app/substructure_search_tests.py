@@ -71,8 +71,9 @@ def test_cache(test_db):
 
     response = client.post("/molecules/search", json={"substr": "O"})
     # response = client.get('/molecules/' + str(task_id))
-
-    result = AsyncResult(response['task_id'])
+        
+    data = response.json()
+    result = AsyncResult(data['task_id'])
 
     while not result.ready():
         time.sleep(1)
