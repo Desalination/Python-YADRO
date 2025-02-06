@@ -63,7 +63,7 @@ def test_substructure_search_some_match():
 
 
 def test_cache(test_db):
-    Base.metadata.drop_all(bind=engine)
+    # Base.metadata.drop_all(bind=engine)
     mol = "CCO"
     for i in range(0, 100):
         client.post("/molecules/add", json={"id": str(i), "smile_notation": mol})
