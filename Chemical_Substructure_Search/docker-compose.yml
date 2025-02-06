@@ -1,24 +1,66 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:15
-    container_name: postgres
+    container_name: db
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
+      POSTGRES_HOST: db
     ports:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
 
-  web:
+  web1:
     build: ./app
-    container_name: fastapi_app
-    ports:
-      - "8000:8000"
+    volumes:
+      - ./app:/app
+    environment:
+      POSTGRES_HOST: db
+      REDIS_HOST: redis
+      SERVER_ID: SERVER-1
     depends_on:
       - db
+      - redis
+
+  web2:
+    build: ./app
+    volumes:
+      - ./app:/app
+    environment:
+      POSTGRES_HOST: db
+      REDIS_HOST: redis
+      SERVER_ID: SERVER-2
+    depends_on:
+      - db
+      - redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  celery_worker:
+    build: ./app
+    command: celery -A celery_worker worker --loglevel=info
+    environment:
+      POSTGRES_HOST: db
+      REDIS_HOST: redis
+    depends_on:
+      - redis
+    volumes:
+      - ./app:/app
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    depends_on:
+      - web1
+      - web2
+
 volumes:
   db_data:
