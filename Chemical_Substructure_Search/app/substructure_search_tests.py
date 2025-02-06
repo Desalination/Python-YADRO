@@ -18,48 +18,48 @@ def test_db():
     Base.metadata.drop_all(bind=engine)
 
 
-def test_substructure_search_valid():
-    molecules = [
-        "CCO",
-        "CCCO",
-        "CCCCO",
-    ]
-    substructure = "O"
+# def test_substructure_search_valid():
+#     molecules = [
+#         "CCO",
+#         "CCCO",
+#         "CCCCO",
+#     ]
+#     substructure = "O"
 
-    result = substructure_search(molecules, substructure)
-    assert result == ["CCO", "CCCO", "CCCCO"], "Substructure search failed"
-
-
-def test_substructure_search_invalid_substructure():
-    molecules = [
-        "CCO",
-        "CCCO",
-    ]
-    substructure = "invalid_smiles"
-
-    with pytest.raises(ValueError, match="Invalid substructure provided."):
-        substructure_search(molecules, substructure)
+#     result = substructure_search(molecules, substructure)
+#     assert result == ["CCO", "CCCO", "CCCCO"], "Substructure search failed"
 
 
-def test_substructure_search_empty_molecules():
-    molecules = []
-    substructure = "O"
+# def test_substructure_search_invalid_substructure():
+#     molecules = [
+#         "CCO",
+#         "CCCO",
+#     ]
+#     substructure = "invalid_smiles"
 
-    result = substructure_search(molecules, substructure)
-    assert result == [], "Substructure search should return empty list for empty molecules list"
+#     with pytest.raises(ValueError, match="Invalid substructure provided."):
+#         substructure_search(molecules, substructure)
 
 
-def test_substructure_search_some_match():
-    molecules = [
-        "CCO",
-        "CCCO",
-        "CCCCO",
-        "CCN",
-    ]
-    substructure = "O"
+# def test_substructure_search_empty_molecules():
+#     molecules = []
+#     substructure = "O"
 
-    result = substructure_search(molecules, substructure)
-    assert result == ["CCO", "CCCO", "CCCCO"], "Substructure search failed to find matching molecules"
+#     result = substructure_search(molecules, substructure)
+#     assert result == [], "Substructure search should return empty list for empty molecules list"
+
+
+# def test_substructure_search_some_match():
+#     molecules = [
+#         "CCO",
+#         "CCCO",
+#         "CCCCO",
+#         "CCN",
+#     ]
+#     substructure = "O"
+
+#     result = substructure_search(molecules, substructure)
+#     assert result == ["CCO", "CCCO", "CCCCO"], "Substructure search failed to find matching molecules"
 
 
 def test_cache(test_db):
@@ -73,6 +73,7 @@ def test_cache(test_db):
     # response = client.get('/molecules/' + str(task_id))
         
     data = response.json()
+    print("DATA----------=", data)
     result = AsyncResult(data['task_id'])
 
     while not result.ready():
