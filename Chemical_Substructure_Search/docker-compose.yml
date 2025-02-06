@@ -13,6 +13,7 @@ services:
       - db_data:/var/lib/postgresql/data
 
   web1:
+    container_name: web1
     build: ./app
     volumes:
       - ./app:/app
@@ -25,6 +26,7 @@ services:
       - redis
 
   web2:
+    container_name: web2
     build: ./app
     volumes:
       - ./app:/app
@@ -37,11 +39,13 @@ services:
       - redis
 
   redis:
+    container_name: redis_
     image: redis:latest
     ports:
       - "6379:6379"
 
   celery_worker:
+    container_name: celery_worker_
     build: ./app
     command: celery -A celery_worker worker --loglevel=info
     environment:
@@ -53,6 +57,7 @@ services:
       - ./app:/app
 
   nginx:
+    container_name: nginx_
     image: nginx:latest
     ports:
       - "80:80"
