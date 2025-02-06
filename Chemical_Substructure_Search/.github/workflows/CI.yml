@@ -2,9 +2,9 @@ name: YADRO AI Project
 
 on:
   push:
-    branches: [ main, proj2 ]
+    branches: [ master, Project_8-9 ]
 #  pull_request:
-#    branches: [ main, proj2 ]
+#    branches: [ main, Project_8-9 ]
 
 jobs:
   test:
