@@ -72,7 +72,7 @@ def test_cache(test_db):
     # print("GET_ALL:", response_get_all.content)
     
     response = client.post("/molecules/search", json={"substr": "O"})
-
+    print("Response-------=", response)
     data = response.json()
     print("data------------=",data)
     result = AsyncResult(data['task_id'])
