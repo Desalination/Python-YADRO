@@ -9,6 +9,7 @@ from rdkit import Chem
 from sqlalchemy.orm import Session
 from utils import logger
 from celery.result import AsyncResult
+from pydantic import BaseModel
 
 router_mol = APIRouter()
 
@@ -78,10 +79,12 @@ async def add_mol(mol: MoleculeIn, db: Session = Depends(get_db)):
     logger.info(f"Molecule {MoleculeIn} added.")
     return new_smile
 
+class SearchRequest(BaseModel):
+    substr: str
 
 @router_mol.post("/search")
-def search_substructure(substr: str):
-    task = perform_substructure_search.apply_async(args=[substr])
+def search_substructure(request: SearchRequest):
+    task = perform_substructure_search.apply_async(args=[request.substr])
     return {"task_id": task.id, "status": task.status}
 
 
