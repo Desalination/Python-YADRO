@@ -63,17 +63,17 @@ def test_db():
 
 
 def test_cache(test_db):
-    # Base.metadata.drop_all(bind=engine)
     mol = "CCO"
     for i in range(0, 100):
         client.post("/molecules/add", json={"id": str(i), "smile_notation": mol})
         mol = "C" + mol
 
+    response_get_all = client.get("/molecules/get_all")
+    print("GET_ALL----------", response_get_all.content)
+    
     response = client.post("/molecules/search", json={"substr": "O"})
-    # response = client.get('/molecules/' + str(task_id))
-        
+
     data = response.json()
-    print("DATA----------=", data)
     result = AsyncResult(data['task_id'])
 
     while not result.ready():
