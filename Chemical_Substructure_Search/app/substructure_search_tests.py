@@ -1,6 +1,6 @@
-from app.substructure_search import substructure_search
-from app.datab import engine, Base
-from app.main import app
+from substructure_search import substructure_search
+from datab import engine, Base
+from main import app
 
 import pytest
 from fastapi import FastAPI
