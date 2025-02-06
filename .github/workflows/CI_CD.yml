@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: run containers
-        run: docker compose -f docker-compose.yml up db redis celery_worker -d --build
+        run: docker compose -f docker-compose.yml up db redis -d --build
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -37,7 +37,9 @@ jobs:
         run: |
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
+      
 
       - name: Run tests
         run: |
+          celery -A celery_worker worker --loglevel=info
           REDIS_HOST=localhost POSTGRES_HOST=localhost pytest app/substructure_search_tests.py
