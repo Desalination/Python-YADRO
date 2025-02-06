@@ -14,8 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: run database
-        run: docker compose -f Chemical_Substructure_Search/docker-compose.yml up db -d --build
+      - name: run containers
+        run: docker compose -f Chemical_Substructure_Search/docker-compose.yml up db redis_ celery_worker_  -d --build
 
       - name: Set up Python
         uses: actions/setup-python@v2
