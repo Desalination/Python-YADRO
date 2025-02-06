@@ -1,6 +1,8 @@
 from celery import Celery
 import os
 
+load_dotenv()
+
 celery = Celery(
     'task',
     broker=f'redis://{os.getenv("REDIS_HOST")}:6379/0',
