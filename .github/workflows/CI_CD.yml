@@ -41,5 +41,5 @@ jobs:
 
       - name: Run tests
         run: |
-          celery -A celery_worker worker --loglevel=info
+          REDIS_HOST=localhost POSTGRES_HOST=localhost celery -A celery_worker worker --loglevel=info
           REDIS_HOST=localhost POSTGRES_HOST=localhost pytest app/substructure_search_tests.py
