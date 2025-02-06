@@ -77,8 +77,6 @@ def test_cache(test_db):
     print("data------------=",data)
     result = AsyncResult(data['task_id'])
 
-    while not result.ready():
-        time.sleep(1)
 
     assert result.status == 'SUCCESS', f"Task failes with status {result.status}"
 
