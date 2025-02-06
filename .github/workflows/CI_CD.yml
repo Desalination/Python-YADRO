@@ -34,4 +34,4 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest Chemical_Substructure_Search/app/substructure_search_tests.py
+          pytest POSTGRES_HOST=localhost Chemical_Substructure_Search/app/substructure_search_tests.py
