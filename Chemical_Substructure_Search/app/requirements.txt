@@ -8,3 +8,4 @@ sqlalchemy
 redis
 celery[redis]
 httpx
+flake8
