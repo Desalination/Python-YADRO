@@ -9,3 +9,4 @@ redis
 celery[redis]
 httpx
 flake8
+pytest
