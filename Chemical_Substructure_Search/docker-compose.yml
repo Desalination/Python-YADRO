@@ -6,7 +6,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
-      POSTGRES_HOST: db
     ports:
       - "5432:5432"
     volumes:
@@ -39,13 +38,13 @@ services:
       - redis
 
   redis:
-    container_name: redis_
+    container_name: redis
     image: redis:latest
     ports:
       - "6379:6379"
 
   celery_worker:
-    container_name: celery_worker_
+    container_name: celery_worker
     build: ./app
     command: celery -A celery_worker worker --loglevel=info
     environment:
@@ -57,7 +56,7 @@ services:
       - ./app:/app
 
   nginx:
-    container_name: nginx_
+    container_name: nginx
     image: nginx:latest
     ports:
       - "80:80"
