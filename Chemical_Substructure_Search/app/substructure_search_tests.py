@@ -67,8 +67,8 @@ def test_cache(test_db):
     for i in range(0, 100):
         client.post("/molecules/add", json={"id": str(i), "smile_notation": mol})
         mol = "C" + mol
-    reponse_getAll = client.post("/molecules/get_all")
-    print("ALL=========", reponse_getAll.content)
+    response_getAll = client.get("/molecules/get_all")
+    print("ALL=========", response_getAll.content)
     assert 1 == 1
     # response_get_all = client.get("/molecules/get_all")
     # print("GET_ALL:", response_get_all.content)
