@@ -10,11 +10,22 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    DB_HOST: str = "localhost"
+    # db:
+    # image: postgres:15
+    # container_name: postgres
+    # environment:
+    # POSTGRES_DRIVER: postgresql
+    # POSTGRES_USER: user
+    # POSTGRES_PASSWORD: password
+    # POSTGRES_DB: db
+
+    # "postgresql://postgres:postgres@db:5432/postgres"
+
+    DB_HOST: str = "db"
     DB_PORT: int = 5432
     DB_NAME: str = "postgres"
     DB_USERNAME: str = "postgres"
-    DB_PASSWORD: str = "password"
+    DB_PASSWORD: str = "postgres"
 
 
 settings = Settings()
